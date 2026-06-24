@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from "react";
-import { Link, Button } from "@heroui/react";
+import {  Button } from "@heroui/react";
+import Link from "next/link";
 
  function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,22 +21,25 @@ import { Link, Button } from "@heroui/react";
         </ul>
 
         <div className="hidden md:flex items-center gap-4">
-        <Button 
-        as={Link} 
-        href="/login" 
-        variant="flat" 
-        className="bg-gray-600 rounded-xl text-white hover:bg-gray-800"
-      
-      >
-        Login
-      </Button>
+        
+          <Link href="/login">
           <Button 
-            as={Link} 
-            href="/register" 
+            variant="flat" 
+            className="bg-gray-600 rounded-xl text-white hover:bg-gray-800"
+          >
+            Login
+          </Button>
+          </Link>
+          <Link href="/register" >
+            <Button 
+            variant="flat" 
             className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90"
           >
             Sign Up
           </Button>
+
+          </Link>
+           
         </div>
 
    
