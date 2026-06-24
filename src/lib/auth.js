@@ -7,7 +7,7 @@ import { jwt } from "better-auth/plugins";
 
 
 const client = new MongoClient(process.env.DB_URI);
-const db = client.db("prompt-craft");
+const db = client.db("Prompt-Craft");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
@@ -15,6 +15,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    requireEmailVerification: false,
   },
    baseURL: process.env.BETTER_AUTH_URL, 
     socialProviders: {
@@ -23,16 +24,16 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET , 
         }, 
     },
-  user: {
-    additionalFields: {
-      role: {
-        defaultValue: "buyer",
-      },
-      plan: {
-        defaultValue: "free",
-      },
-    },
-  },
+  // user: {
+  //   additionalFields: {
+  //     role: {
+  //       defaultValue: "buyer",
+  //     },
+  //     plan: {
+  //       defaultValue: "free",
+  //     },
+  //   },
+  // },
   session: {
     cookieCache: {
       enabled: true,

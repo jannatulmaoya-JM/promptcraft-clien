@@ -123,10 +123,11 @@ import * as Icons from "@gravity-ui/icons";
     setLoading(true);
 
     try {
-      const { error: authError } = await authClient.signUp.email({
+      const {data, error: authError } = await authClient.signUp.email({
         email,
         password,
-        name,
+        name:name,
+        callbackURL:"/login",
       });
 
       if (authError) throw new Error(authError.message || "Registration failed");
