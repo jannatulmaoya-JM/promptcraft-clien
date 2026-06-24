@@ -71,8 +71,9 @@ export default function LoginPage() {
       type="email" 
       name="email" 
       required 
-      placeholder="you@example.com" 
-      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 text-sm text-gray-900 placeholder-gray-400" 
+      placeholder="Enter Your Email" 
+      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:border-blue-500 text-sm text-gray-950 font-medium bg-white placeholder-gray-400" 
+
     />
   </div>
  
@@ -116,7 +117,8 @@ export default function LoginPage() {
             <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
-        <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 focus:outline-none focus:border-blue-500 text-sm text-black font-medium">
+        <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 text-sm text-black font-medium cursor-pointer">
+          <svg className="h-5 w-5" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.115-5.166 4.115-3.414 0-6.182-2.768-6.182-6.182s2.768-6.182 6.182-6.182c1.482 0 2.839.524 3.905 1.39l3.052-3.052C18.91 2.502 15.82 1.333 12.24 1.333 6.353 1.333 1.572 6.114 1.572 12s4.781 10.667 10.668 10.667c6.143 0 10.457-4.305 10.457-10.667 0-.714-.076-1.257-.21-1.714H12.24z" /></svg>
           Continue with Google
         </button>
 
