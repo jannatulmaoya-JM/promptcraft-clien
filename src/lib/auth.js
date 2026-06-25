@@ -26,6 +26,9 @@ export const auth = betterAuth({
     },
   user: {
     additionalFields: {
+      image:{
+        required: false,
+      },
       role: {
         defaultValue: "user",
       },
