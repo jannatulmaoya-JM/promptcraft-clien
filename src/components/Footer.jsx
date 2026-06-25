@@ -3,8 +3,16 @@
 
 import { Link } from "@heroui/react";
 import * as Icons from "@gravity-ui/icons";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+
+  const pathname = usePathname()
+     if (pathname.includes('dashboard')){
+      return null;
+     }
+
+
   return (
     <footer className="w-full border-t border-gray-200 bg-gray-300 py-16">
       <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-4 gap-12">

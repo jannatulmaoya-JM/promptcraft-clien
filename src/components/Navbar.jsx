@@ -3,10 +3,17 @@
 import { useState } from "react";
 import {  Button } from "@heroui/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
  function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+   const pathname = usePathname()
+   if (pathname.includes('dashboard')){
+    return null;
+   }
+
+   
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-gray-200/20 bg-white/70 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
@@ -52,8 +59,12 @@ import Link from "next/link";
 
       {isMenuOpen && (
         <div className="md:hidden border-t border-gray-200 bg-white p-6 space-y-4">
-          <Link href="/" className="block">Home</Link>
+          <div>
+            <Link href="/" className="block">Home</Link>
           <Link href="/all-prompts" className="block">All Prompts</Link>
+           {user && <Link href="/dashboard" className={getLinkClass("/add-tutor")}>Dashbord</Link>}
+            {user && <Link href="/logout" className={getLinkClass("/my-tutors")}>Logout</Link>}
+          </div>
           <div className="flex gap-4 pt-4">
             <Button as={Link} href="/login" variant="bordered" className="w-full">Login</Button>
             <Button as={Link} href="/register" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white">Sign Up</Button>

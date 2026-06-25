@@ -24,16 +24,16 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET , 
         }, 
     },
-  // user: {
-  //   additionalFields: {
-  //     role: {
-  //       defaultValue: "buyer",
-  //     },
-  //     plan: {
-  //       defaultValue: "free",
-  //     },
-  //   },
-  // },
+  user: {
+    additionalFields: {
+      role: {
+        defaultValue: "user",
+      },
+      plan: {
+        defaultValue: "free",
+      },
+    },
+  },
   session: {
     cookieCache: {
       enabled: true,
