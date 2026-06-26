@@ -8,12 +8,12 @@ const Banner = () => {
   const trendingTags = ["#SEO", "#React", "#Creative", "#Midjourney", "#Code"];
 
   return (
-    // পুরো স্ক্রিন জুড়ে ব্যানার (w-full)
+  
     <section className="relative  min-h-[70vh] flex flex-col items-center justify-center bg-gray-50 py-20 px-4 md:px-10">
       
       <div >
         
-        {/* হেডলাইন সেকশন */}
+     
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,6 @@ const Banner = () => {
           </p>
         </motion.div>
 
-        {/* ফুল উইডথ সার্চ বার */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -46,7 +45,6 @@ const Banner = () => {
           </div>
         </motion.div>
 
-        {/* ট্রেন্ডিং ট্যাগস */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -64,7 +62,7 @@ const Banner = () => {
           ))}
         </motion.div>
 
-        {/* কল টু অ্যাকশন বাটন */}
+      
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

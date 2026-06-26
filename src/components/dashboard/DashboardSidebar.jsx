@@ -41,9 +41,9 @@ export default function DashboardSidebar({ role = "user" }) {
   return (
     <Drawer>
       <Drawer.Trigger>
-        <Button as="div" className="sm:hidden flex" variant="secondary">
-          <Bars />
-        </Button>
+        <div className="sm:hidden flex cursor-pointer p-2 border rounded">
+         <Bars />
+        </div>
       </Drawer.Trigger>
 
      
