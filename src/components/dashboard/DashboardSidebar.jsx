@@ -1,104 +1,87 @@
+"use client";
 
+import { 
+  Bookmark, ChartAreaStacked, Circles3Plus, CodeFork, Factory, 
+  FloppyDisk, FolderPlus, Person, Persons, ObjectsAlignBottom, 
+  ObjectsAlignJustifyHorizontal, Bars 
+} from "@gravity-ui/icons";
+import { Button, Drawer } from "@heroui/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import {Bars, Bookmark, ChartAreaStacked, Circles3Plus, CodeFork, Factory, FloppyDisk, FolderPlus, Gear, House, Magnifier, ObjectsAlignBottom, ObjectsAlignJustifyHorizontal, Person, Persons} from "@gravity-ui/icons";
-import {Button, Drawer} from "@heroui/react";
-import { link } from "framer-motion/client";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
-export default async function DashboardSidebar() {
-    const session = await auth.api.getSession({
-        headers: await headers()
-    })
-    const user = session?.user
-    const role = user?.role || creator
-    console.log(user)
-    const dashboardItems={
-        user:[
-            { icon:Person,label:"My Profile",link:'/dashboard/user'},
-            { icon:Bookmark,label:"My Prompts",link:'/dashboard/user/My Prompts'},
-            { icon:FloppyDisk,label:"Saved Prompts",link:'/dashboard/user/Saved Prompts'},
-            { icon:FolderPlus,label:"Add Prompt",link:'/dashboard/user/Add Prompt'},
-            { icon:Circles3Plus,label:"My Reviews",link:'/dashboard/user/My Reviews'},
-          
-        ],
+export default function DashboardSidebar({ role = "user" }) {
+  const pathname = usePathname();
 
-        creator:[
-            { icon:Person,label:"My Profile",link:'/dashboard/creator'},
-            { icon:FolderPlus,label:"Creator Dashboard Home",link:'/dashboard/creator/Creator Dashboard Home'},
-            { icon: Bookmark,label:"Add Prompt",link:'/dashboard/creator/Add Prompt'},
-            { icon:FloppyDisk,label:"My Prompts",link:'/dashboard/creator/My Prompts'},
-            
-          
-        ],
+  const dashboardItems = {
+    user: [
+      { icon: Person, label: "My Profile", link: '/dashboard/user' },
+      { icon: Bookmark, label: "My Prompts", link: '/dashboard/user/my-prompts' },
+      { icon: FloppyDisk, label: "Saved Prompts", link: '/dashboard/user/saved-prompts' },
+      { icon: FolderPlus, label: "Add Prompt", link: '/dashboard/user/add-prompt' },
+      { icon: Circles3Plus, label: "My Reviews", link: '/dashboard/user/my-reviews' },
+    ],
+    creator: [
+      { icon: Person, label: "My Profile", link: '/dashboard/creator' },
+      { icon: FolderPlus, label: "Dashboard Home", link: '/dashboard/creator/home' },
+      { icon: Bookmark, label: "Add Prompt", link: '/dashboard/creator/add-prompt' },
+      { icon: FloppyDisk, label: "My Prompts", link: '/dashboard/creator/my-prompts' },
+    ],
+    admin: [
+      { icon: Person, label: "My Profile", link: '/dashboard/admin' },
+      { icon: ObjectsAlignBottom, label: "All Users", link: '/dashboard/admin/all-users' },
+      { icon: ObjectsAlignJustifyHorizontal, label: "All Prompts", link: '/dashboard/admin/all-prompts' },
+      { icon: ChartAreaStacked, label: "All Payments", link: '/dashboard/admin/all-payments' },
+      { icon: Factory, label: "Reported Prompts", link: '/dashboard/admin/reported-prompts' },
+      { icon: CodeFork, label: "Analytics", link: '/dashboard/admin/analytics' },
+    ],
+  };
 
-         admin:[
-            { icon:Persons,label:"My Profile",link:'/dashboard/admin'},
-            { icon:ObjectsAlignBottom,label:"All Users",link:'/dashboard/admin/All Users'},
-            { icon:ObjectsAlignJustifyHorizontal,label:"All Prompts",link:'/dashboard/admin/All Prompts'},
-            { icon:ChartAreaStacked,label:"All Payments",link:'/dashboard/admin/All Payments'},
-            { icon:Factory,label:"Reported Prompts",link:'/dashboard/admin/Reported Prompts'},
-            { icon:CodeFork,label:"Analytics",link:'/dashboard/admin/Analytics'},
-          
-        ],
-    }
-
- const navItems= dashboardItems[role ]
-//   const navItems= [
-//     {icon: House, label: "Home"},
-//     {icon: Magnifier, label: "Search"},
-//     {icon: Bell, label: "Notifications"},
-//     {icon: Envelope, label: "Messages"},
-//     {icon: Person, label: "Profile"},
-//     {icon: Gear, label: "Settings"},
-//   ];
+  const navItems = dashboardItems[role] || dashboardItems.user;
 
   return (
     <Drawer>
-      <Button className={'hiden sm:block'} variant="secondary">
-        <Bars />
-        Menu
-      </Button>
+      <Drawer.Trigger>
+        <Button as="div" className="sm:hidden flex" variant="secondary">
+          <Bars />
+        </Button>
+      </Drawer.Trigger>
 
-      <nav className="flex flex-col gap-1 w-[200] border border-right-1 pt-7 text-gray-900 ">
-            {/* <Image
-            src={'logo-xl.png'}
-            height={'100'}
-            width={'100'}
-            className="h-10"
-            alt=""
-            
-            /> */}
-                {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                    type="button"
-                  >
-                    <item.icon className="size-5 text-muted" />
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
+     
+      <nav className="hidden sm:flex flex-col gap-1 w-64 border-r min-h-screen pt-7 px-4 text-gray-900 bg-white">
+        <h2 className="text-xl font-bold mb-6 px-3">Dashboard</h2>
+        {navItems.map((item) => (
+          <Link
+            key={item.label}
+            href={item.link}
+            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
+              pathname === item.link ? "bg-blue-100 text-blue-700 font-semibold" : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <item.icon className="size-5" />
+            {item.label}
+          </Link>
+        ))}
+      </nav>
 
-
+    
       <Drawer.Backdrop>
         <Drawer.Content placement="left">
-          <Drawer.Dialog>
+          <Drawer.Dialog className="p-4">
             <Drawer.CloseTrigger />
             <Drawer.Header>
               <Drawer.Heading>Navigation</Drawer.Heading>
             </Drawer.Header>
             <Drawer.Body>
-              <nav className="flex flex-col gap-1">
+              <nav className="flex flex-col gap-2">
                 {navItems.map((item) => (
-                  <button
+                  <Link
                     key={item.label}
-                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                    type="button"
+                    href={item.link}
+                    className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm hover:bg-gray-100"
                   >
-                    <item.icon className="size-5 text-muted" />
+                    <item.icon className="size-5" />
                     {item.label}
-                  </button>
+                  </Link>
                 ))}
               </nav>
             </Drawer.Body>

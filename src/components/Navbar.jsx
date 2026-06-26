@@ -17,9 +17,7 @@ function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  if (pathname.includes('dashboard')) {
-    return null;
-  }
+  const isDashboard = pathname.includes('/dashboard');
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,7 +43,7 @@ function Navbar() {
     
      console.log("User Session Data:", user);
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-gray-200/20 bg-white/70 backdrop-blur-md">
+    <nav className={pathname.includes('dashboard') ? "hidden" :"sticky top-0 z-50 w-full border-b border-gray-200/20 bg-white/70 backdrop-blur-md"}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         
         <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
