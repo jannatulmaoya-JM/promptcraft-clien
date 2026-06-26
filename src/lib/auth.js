@@ -46,3 +46,4 @@ export const auth = betterAuth({
   },
   plugins: [jwt()],
 });
+

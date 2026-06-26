@@ -5,7 +5,7 @@ import {Button, Drawer} from "@heroui/react";
 import { link } from "framer-motion/client";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
-export default async function DashbordSidebar() {
+export default async function DashboardSidebar() {
     const session = await auth.api.getSession({
         headers: await headers()
     })
