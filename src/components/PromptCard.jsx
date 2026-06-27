@@ -22,7 +22,7 @@ export default function PromptCard({ item }) {
      if (!item) return null;
   const handleViewDetails = () => {
     if (isLoggedIn) {
-            router.push(`/prompt-details/${item._id}`);
+            router.push(`/prompt/${item._id}`);
         } else {
             router.push("/login");
         }
@@ -77,3 +77,4 @@ export default function PromptCard({ item }) {
     </Card>
   );
 }
+

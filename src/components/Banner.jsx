@@ -1,82 +1,58 @@
-"use client";
 
+"use client";
 import React from 'react';
 import { motion } from 'framer-motion';
 import * as Icons from "@gravity-ui/icons";
+import Link from 'next/link';
 
 const Banner = () => {
   const trendingTags = ["#SEO", "#React", "#Creative", "#Midjourney", "#Code"];
 
   return (
-  
-    <section className="relative  min-h-[70vh] flex flex-col items-center justify-center bg-gray-50 py-20 px-4 md:px-10">
-      
-      <div >
-        
+    <section className="relative flex flex-col items-center justify-center bg-[url('/images/banner.png')] bg-cover bg-center py-20 px-4 text-center">
+   
+      <div className="absolute inset-0 bg-black/60"></div>
+
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="relative z-10 space-y-6">
+        <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tighter">
+          Elevate Your AI <br />
+          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Productivity</span>
+        </h1>
+        <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto">
+          Discover, bookmark, and share high-quality prompts. Create faster and automate your workflow.
+        </p>
+      </motion.div>
+
+      <motion.div className="relative z-10 w-full max-w-2xl mt-8">
+        <div className="flex items-center w-full h-16 px-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg">
+          <Icons.Magnifier size={24} className="text-gray-300 mr-4" />
+          <input type="text" placeholder="Search prompts..." className="w-full bg-transparent outline-none text-lg text-white placeholder:text-gray-400" />
+        </div>
+      </motion.div>
+
+      <motion.div className="relative z-10 flex gap-4 mt-8">
+       <Link href="/all-prompts">
+        <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-800 text-white font-semibold rounded-full hover:bg-blue-700 transition">
+          Explore Prompts
+        </button>
+        </Link> 
+       
+        <button className="px-8 py-3 bg-white/10 text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition">
+          Learn More
+        </button>
+   
+      </motion.div>
+
      
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6"
-        >
-          <h1 className="text-5xl md:text-8xl font-extrabold text-gray-900 tracking-tighter">
-            Elevate Your AI <br />
-            <span className="text-blue-600">Productivity</span>
-          </h1>
-          <p className="text-gray-600 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-            Discover, bookmark, and share high-quality prompts. Create faster and automate your workflow with PromptCraft.
-          </p>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="w-full max-w-4xl"
-        >
-          <div className="flex items-center w-full h-20 px-8 bg-white border-2 border-gray-200 rounded-full shadow-2xl focus-within:border-blue-500 transition-all">
-            <Icons.Magnifier size={28} className="text-gray-400 mr-6" />
-            <input 
-              type="text" 
-              placeholder="Search prompts by title, tag, or AI tool..." 
-              className="w-full h-full bg-transparent outline-none text-xl text-gray-900 placeholder:text-gray-400"
-            />
-          </div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          <span className="text-gray-500 font-medium text-lg">Trending:</span>
-          {trendingTags.map((tag) => (
-            <button 
-              key={tag} 
-              className="px-6 py-2 text-md bg-white border border-gray-200 hover:border-blue-500 text-gray-700 hover:text-blue-700 rounded-full transition-all shadow-sm"
-            >
-              {tag}
-            </button>
-          ))}
-        </motion.div>
-
-      
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-        >
-          <button className="px-12 py-5 bg-blue-600 text-white font-bold text-xl rounded-full hover:bg-blue-700 shadow-xl hover:shadow-blue-300 transition-all transform hover:scale-105">
-            Explore All Prompts
+      <div className="relative z-10 flex flex-wrap justify-center gap-3 mt-8">
+        <span className="text-gray-400 font-medium self-center">Trending:</span>
+        {trendingTags.map((tag) => (
+          <button key={tag} className="px-4 py-1 text-sm bg-black/30 border border-white/10 text-gray-300 rounded-full hover:border-blue-400 transition">
+            {tag}
           </button>
-        </motion.div>
+        ))}
       </div>
     </section>
   );
 };
-
 export default Banner;
-
-

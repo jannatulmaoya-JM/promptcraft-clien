@@ -1,20 +1,26 @@
+import React from 'react';
 import Banner from "@/components/Banner";
-import Image from "next/image";
+import FeaturedPrompts from "@/components/Featuredprompts ";
+import WhyChooseUs from "@/components/Whychooseus";
+
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="  justify-center  font-sans ">
+      <main className=" w-full  items-center justify-between bg-gray-700 sm:items-start">
          <Banner/>
+         
+         <FeaturedPrompts />
 
-        admin@gmail.com 
+         <WhyChooseUs />
+        {/* admin@gmail.com 
         Admin1234
 
         maoyauser@gmail.com
         User@1234
 
         janatulmaoyacreator@gmail.com
-        Creator@1234
+        Creator@1234 */}
       </main>
     </div>
   );
