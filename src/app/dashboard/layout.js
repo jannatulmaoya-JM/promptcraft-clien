@@ -1,5 +1,3 @@
-
-
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -15,6 +13,15 @@ export default async function DashboardLayout({ children }) {
     }
 
     const userRole = session?.user?.role || "user"; 
+    const pathname = (await headers()).get("x-invoke-path") || "";
+
+    if (pathname.startsWith("/dashboard/admin") && userRole !== "admin") {
+        redirect("/dashboard/user"); 
+    }
+    
+
+      console.log("Full Session Object:", session);
+    //  console.log("Checking Role before passing to Sidebar:", userRole); // এটি যোগ করুন
 
     return (
         <div className="flex h-screen bg-gray-100 text-black">

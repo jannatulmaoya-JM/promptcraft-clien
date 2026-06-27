@@ -173,27 +173,41 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "../../lib/auth-client";
 import { toast } from "react-hot-toast";
 import * as Icons from "@gravity-ui/icons";
 
+
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  
+  const [isChecking, setIsChecking] = useState(true);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || "/";
+  
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: session } = await authClient.getSession();
+      if (session) {
+        router.push("/dashboard");
+      } else {
+        setIsChecking(false);
+      }
+    };
+    checkSession();
+  }, [router]);
 
   const handleGoogleLogin = async () => {
     try {
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: from,
+        callbackURL:"/dashboard",
       });
     } catch (err) {
       toast.error("Google registration failed");
@@ -217,9 +231,9 @@ export default function SignUpPage() {
         email,
         password,
         name: name,
-        additionalData: {
-          image: image,
-          role: role,
+        additionalFields: {
+           image: image,
+           role: role,
           plan: 'free',
         },
         callbackURL: "/login",
@@ -229,11 +243,9 @@ export default function SignUpPage() {
 
       toast.success("Account created successfully!");
       
-      if (role === "creator") {
-        router.push("/creator-dashboard");
-      } else {
+     
         router.push("/login");
-      }
+      
     } catch (err) {
       setError(err.message || "Registration failed");
       toast.error(err.message || "Registration failed");
@@ -241,7 +253,7 @@ export default function SignUpPage() {
       setLoading(false);
     }
   };
-
+  if (isChecking) return null;
   return (
     <div className="min-h-screen flex items-center justify-center py-6 px-4 bg-gray-50/50">
       <div className="max-w-sm w-full bg-white p-6 rounded-2xl shadow-xl border border-gray-100">
