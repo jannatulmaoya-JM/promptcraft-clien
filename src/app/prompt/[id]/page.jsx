@@ -6,7 +6,7 @@ export default function PromptDetails({ params }) {
     const { id } = params;
     const [isReportOpen, setIsReportOpen] = useState(false);
 
-    // এখানে আপনার API থেকে ডাটা ফেচ করার লজিক হবে
+  
     const promptData = {
         title: "Claude 3.5 Sonnet Fullstack Architect",
         description: "Creates optimal database schemas and corresponding backend route templates with security validations.",

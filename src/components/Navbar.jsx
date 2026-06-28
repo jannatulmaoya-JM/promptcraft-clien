@@ -18,7 +18,7 @@ function Navbar() {
   const pathname = usePathname();
 
   const isDashboard = pathname.includes('/dashboard');
-
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -28,6 +28,7 @@ function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  if (!mounted) return null;
 
   const handleLogout = async () => {
     await authClient.signOut({
@@ -40,7 +41,8 @@ function Navbar() {
       },
     });
   };
-    
+     // আপনার Navbar.jsx এ এই লগটি দিয়ে দেখুন
+console.log("User Image URL:", user?.image);
     //  console.log("User Session Data:", user);
   return (
     <nav className={pathname.includes('dashboard') ? "hidden" :"sticky top-0 z-50 w-full border-b border-gray-200/20 bg-white/70 backdrop-blur-md"}>
