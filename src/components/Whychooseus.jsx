@@ -21,7 +21,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-20 px-4 bg-black border-t border-gray-900">
+    <section className="py-20 px-4 bg-gray-950 border-t ">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-4xl font-bold text-white mb-16">Why Choose Our Platform?</h2>
         
