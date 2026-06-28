@@ -4,6 +4,7 @@ import FeaturedPrompts from "@/components/Featuredprompts ";
 import WhyChooseUs from "@/components/Whychooseus";
 import LiveFeed from '@/components/LiveFeed';
 import PromptCategories from '@/components/PromptCategories';
+import ReviewBar from '@/components/ReviewBar';
 
 
 export default function Home() {
@@ -14,7 +15,8 @@ export default function Home() {
          <FeaturedPrompts />
          <PromptCategories/>
          <WhyChooseUs />
-         {/* <LiveFeed/> */}
+         <ReviewBar/>
+         <LiveFeed/>
         {/* admin@gmail.com 
         Admin1234
 
