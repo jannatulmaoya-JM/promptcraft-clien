@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client"; 
 import toast from "react-hot-toast";
-console.log("Navbar Component is rendering");
+
 
 function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -18,13 +18,13 @@ function Navbar() {
   const user = session?.user;
   const router = useRouter();
   const pathname = usePathname();
-  console.log("Current Path:", pathname);
-
+  //console.log("Current Path:", pathname);
+  // console.log("Navbar Component is rendering");
   const isDashboard = pathname.includes('/dashboard');
  
   useEffect(() => {
+       setMounted(true);
     const handleClickOutside = (event) => {
-      setMounted(true);
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
@@ -51,7 +51,6 @@ function Navbar() {
 
      <nav className={pathname.includes('dashboard') ? "hidden" :"sticky top-0 z-50 w-full border-b border-gray-200/20 bg-white/70 backdrop-blur-md"}>
      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-       
          <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           PromptCraft
         </div>

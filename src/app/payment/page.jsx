@@ -1,212 +1,115 @@
-// "use client";
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/navigation";
-// import { motion } from "framer-motion";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-// import Navbar from "@/components/Navbar";
-// import { useSession } from "@/lib/auth";
-// import { paymentAPI } from "@/lib/proxy";
-// import { toast } from "react-toastify";
 
-// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
+'use client';
 
-// const cardStyle = {
-//   style: {
-//     base: { color: "#f9fafb", fontSize: "15px", "::placeholder": { color: "#6b7280" }, iconColor: "#a78bfa" },
-//     invalid: { color: "#ef4444" },
-//   },
-// };
+import React, { useState, Suspense } from 'react';
+import { Button, Card } from "@heroui/react";
+import { CheckCircle2, Zap, ShieldCheck, Star, Sparkles, CreditCard, CheckCircle } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
-// function CheckoutForm() {
-//   const stripe = useStripe();
-//   const elements = useElements();
-//   const router = useRouter();
-//   const { data: session } = useSession();
-//   const [loading, setLoading] = useState(false);
-//   const [clientSecret, setClientSecret] = useState("");
-
-//   useEffect(() => {
-//     paymentAPI.createIntent()
-//       .then(r => setClientSecret(r.data.clientSecret))
-//       .catch(() => toast.error("Failed to initialize payment"));
-//   }, []);
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     if (!stripe || !elements || !clientSecret) return;
-//     setLoading(true);
-//     try {
-//       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-//         payment_method: {
-//           card: elements.getElement(CardElement),
-//           billing_details: { email: session?.user?.email, name: session?.user?.name },
-//         },
-//       });
-//       if (error) throw new Error(error.message);
-//       if (paymentIntent.status === "succeeded") {
-//         await paymentAPI.confirm({ paymentIntentId: paymentIntent.id, amount: 5 });
-//         toast.success("Payment successful! Premium unlocked! 🎉");
-//         router.push("/dashboard");
-//       }
-//     } catch (err) {
-//       toast.error(err.message || "Payment failed");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <div style={{ background: "rgba(0,0,0,0.3)", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 10, padding: "16px 14px", marginBottom: 20 }}>
-//         <CardElement options={cardStyle} />
-//       </div>
-//       <button type="submit" className="btn-primary" disabled={!stripe || loading || !clientSecret}
-//         style={{ width: "100%", padding: 16, fontSize: 16, opacity: loading ? 0.7 : 1 }}>
-//         {loading ? "Processing..." : "Pay $5.00 →"}
-//       </button>
-//       <p style={{ color: "#6b7280", fontSize: 12, textAlign: "center", marginTop: 12 }}>
-//         🔒 Secured by Stripe. Your card details are encrypted.
-//       </p>
-//     </form>
-//   );
-// }
-
-// export default function PaymentPage() {
-//   const { data: session } = useSession();
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     if (session && !session.user) router.push("/login");
-//   }, [session]);
-
-//   const benefits = [
-//     "Access all premium & private prompts",
-//     "Unlimited prompt copies",
-//     "Priority customer support",
-//     "Early access to new prompts",
-//     "Premium creator badge",
-//   ];
-
-//   return (
-//     <>
-//       <Navbar />
-//       <main style={{ minHeight: "calc(100vh - 64px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px", position: "relative", zIndex: 1 }}>
-//         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40, maxWidth: 900, width: "100%" }} className="payment-grid">
-//           {/* Plan details */}
-//           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-//             <div style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.05))", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 20, padding: 36, height: "100%" }}>
-//               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(124,58,237,0.2)", borderRadius: 99, marginBottom: 24 }}>
-//                 <span style={{ fontSize: 14 }}>👑</span>
-//                 <span style={{ color: "#a78bfa", fontSize: 13, fontWeight: 700 }}>PREMIUM PLAN</span>
-//               </div>
-//               <div style={{ fontSize: 52, fontWeight: 900, color: "#f9fafb", lineHeight: 1, marginBottom: 4 }}>$5</div>
-//               <div style={{ color: "#9ca3af", fontSize: 14, marginBottom: 32 }}>One-time payment · Lifetime access</div>
-
-//               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-//                 {benefits.map(b => (
-//                   <div key={b} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-//                     <div style={{ width: 22, height: 22, borderRadius: "50%", background: "rgba(124,58,237,0.2)", border: "1px solid rgba(124,58,237,0.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "#a78bfa", flexShrink: 0 }}>✓</div>
-//                     <span style={{ color: "#d1d5db", fontSize: 14 }}>{b}</span>
-//                   </div>
-//                 ))}
-//               </div>
-
-//               <div style={{ marginTop: 32, padding: 16, background: "rgba(6,182,212,0.05)", borderRadius: 10, border: "1px solid rgba(6,182,212,0.15)" }}>
-//                 <p style={{ color: "#67e8f9", fontSize: 13, fontWeight: 600 }}>💡 Best Value</p>
-//                 <p style={{ color: "#9ca3af", fontSize: 13, marginTop: 4 }}>Over 2,000 premium prompts available immediately after payment.</p>
-//               </div>
-//             </div>
-//           </motion.div>
-
-//           {/* Payment form */}
-//           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-//             <div style={{ background: "#0d1224", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 20, padding: 36 }}>
-//               <h2 style={{ fontSize: 24, fontWeight: 800, color: "#f9fafb", marginBottom: 6 }}>Complete Payment</h2>
-//               <p style={{ color: "#6b7280", fontSize: 14, marginBottom: 28 }}>Enter your card details to unlock premium access</p>
-
-//               {/* Order summary */}
-//               <div style={{ background: "rgba(0,0,0,0.2)", borderRadius: 10, padding: 16, marginBottom: 24 }}>
-//                 <div style={{ display: "flex", justifyContent: "space-between", color: "#9ca3af", fontSize: 13, marginBottom: 8 }}>
-//                   <span>PromptCraft Premium</span><span>$5.00</span>
-//                 </div>
-//                 <div style={{ display: "flex", justifyContent: "space-between", color: "#9ca3af", fontSize: 13, marginBottom: 8 }}>
-//                   <span>Tax</span><span>$0.00</span>
-//                 </div>
-//                 <div style={{ height: 1, background: "rgba(255,255,255,0.06)", margin: "12px 0" }} />
-//                 <div style={{ display: "flex", justifyContent: "space-between", color: "#f9fafb", fontWeight: 700, fontSize: 16 }}>
-//                   <span>Total</span><span>$5.00</span>
-//                 </div>
-//               </div>
-
-//               <Elements stripe={stripePromise}>
-//                 <CheckoutForm />
-//               </Elements>
-//             </div>
-//           </motion.div>
-//         </div>
-//       </main>
-//       <style>{`@media (max-width: 768px) { .payment-grid { grid-template-columns: 1fr !important; } }`}</style>
-//     </>
-//   );
-// }
-"use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Navbar from "@/components/Navbar";
-import { toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css";
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_placeholder");
-
-const cardStyle = {
-  style: {
-    base: { color: "#1f2937", fontSize: "16px", "::placeholder": { color: "#9ca3af" }, iconColor: "#2563eb" },
-    invalid: { color: "#dc2626" },
-  },
-};
-
-function CheckoutForm() {
-  const stripe = useStripe();
-  const elements = useElements();
+function PaymentContent() {
+  const [selectedCard, setSelectedCard] = useState('visa');
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const promptId = searchParams.get('promptId');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!stripe || !elements) return;
-    setLoading(true);
-
-    toast.success("Simulation: Payment successful! ");
-    router.push("/dashboard");
-    setLoading(false);
+  const handlePayment = () => {
+    setIsSuccess(true);
+    toast.success("Payment Successful!");
+    
+    setTimeout(() => {
+      if (promptId) {
+        router.push(`/all-prompts/${promptId}`);
+      } else {
+        router.push('/all-prompts');
+      }
+    }, 2000);
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className="p-4 border border-gray-300 rounded-xl bg-white mb-5">
-        <CardElement options={cardStyle} />
+  if (isSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-950 text-white">
+        <div className="text-center p-8 bg-gray-900 rounded-2xl border border-gray-800">
+          <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
+          <h1 className="text-3xl font-bold">Payment Successful!</h1>
+          <p className="text-gray-400 mt-2">Welcome to PromptCraft Pro. Redirecting...</p>
+        </div>
       </div>
-      <button type="submit" className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 transition" disabled={!stripe || loading}>
-        {loading ? "Processing..." : "Pay $5.00"}
-      </button>
-      <p className="text-gray-400 text-xs text-center mt-4">🔒 Secured by Stripe.</p>
-    </form>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-950 p-6 md:p-12">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-white mb-4">Upgrade to PromptCraft Pro</h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+          <Card className="bg-gray-900 border border-gray-800 p-8">
+            <div className="flex flex-col gap-6">
+              <h2 className="text-3xl font-bold text-white">PromptCraft Pro Access</h2>
+              <div className="text-5xl font-bold text-white">$5.00 <span className="text-lg text-gray-500 font-normal">/ one-time</span></div>
+              <ul className="space-y-4 text-gray-300">
+                <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-green-500" /> Unlock all premium templates</li>
+                <li className="flex items-center gap-3"><Zap className="w-5 h-5 text-yellow-500" /> Unlimited prompt copy actions</li>
+                <li className="flex items-center gap-3"><Star className="w-5 h-5 text-orange-400" /> Community review access</li>
+                <li className="flex items-center gap-3"><ShieldCheck className="w-5 h-5 text-blue-500" /> Lifetime ownership</li>
+              </ul>
+            </div>
+          </Card>
+
+          <Card className="bg-gray-900 border border-gray-800 p-8">
+            <div className="flex flex-col gap-6">
+              <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                <CreditCard /> Card Information
+              </h3>
+
+              <div className="grid grid-cols-1 gap-4">
+                <button 
+                  onClick={() => setSelectedCard('visa')}
+                  className={`p-4 rounded-xl border flex items-center justify-between transition-all ${selectedCard === 'visa' ? 'border-purple-500 bg-purple-900/20' : 'border-gray-700 bg-gray-800'}`}
+                >
+                  <span className="text-white font-medium">Visa ending 4242</span>
+                  <span className="text-gray-400 text-sm">04 / 28</span>
+                </button>
+                <button 
+                  onClick={() => setSelectedCard('mastercard')}
+                  className={`p-4 rounded-xl border flex items-center justify-between transition-all ${selectedCard === 'mastercard' ? 'border-purple-500 bg-purple-900/20' : 'border-gray-700 bg-gray-800'}`}
+                >
+                  <span className="text-white font-medium">Mastercard ending 8888</span>
+                  <span className="text-gray-400 text-sm">12 / 27</span>
+                </button>
+              </div>
+
+              <Button 
+                onClick={handlePayment} 
+                className="bg-purple-600 hover:bg-purple-700 text-white font-bold h-14 text-lg w-full transition-all"
+              >
+                Pay One-time $5.00
+              </Button>
+
+              <div className="border border-purple-900/30 bg-purple-900/5 p-4 rounded-lg text-center">
+                <p className="text-purple-400 text-[10px] font-bold uppercase tracking-widest mb-3">Stripe Testing Assist</p>
+                <p className="text-gray-400 text-xs mb-4">Running locally without keys? Use our Sandbox simulation to test.</p>
+                <Button variant="flat" className="w-full bg-cyan-950/30 text-cyan-400 border border-cyan-800/50">
+                  Simulate $5 Test Checkout
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 }
 
 export default function PaymentPage() {
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-gray-50 py-12 px-6 flex items-center justify-center">
-         <Elements stripe={stripePromise}>
-            <CheckoutForm />
-         </Elements>
-      </main>
-    </>
+    <Suspense fallback={<div className="text-white text-center p-10">Loading...</div>}>
+      <PaymentContent />
+    </Suspense>
   );
 }
