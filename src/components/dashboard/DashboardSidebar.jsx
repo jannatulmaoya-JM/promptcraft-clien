@@ -7,11 +7,15 @@ import {
 } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 export default function DashboardSidebar({ role = "user" }) {
   const pathname = usePathname();
-
+  const router = useRouter();
+ const handleLogout = async () => {
+  router.push("/login");
+ };
   const dashboardItems = {
     user: [
       { icon: Person, label: "My Profile", link: '/dashboard/user' },
@@ -48,7 +52,8 @@ export default function DashboardSidebar({ role = "user" }) {
 
      
       <nav className="hidden sm:flex flex-col gap-1 w-64 border-r min-h-screen pt-7 px-4 text-gray-900 bg-white">
-        <h2 className="text-xl font-bold mb-6 px-3">Dashboard</h2>
+        <div className="flex flex-col gap-1">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6 px-3">PromptCraft</h2>
         {navItems.map((item) => (
           <Link
             key={item.label}
@@ -61,6 +66,16 @@ export default function DashboardSidebar({ role = "user" }) {
             {item.label}
           </Link>
         ))}
+        </div>
+        <div className="px-3 pb-6">
+          <button 
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium"
+          >
+            <FaArrowRightFromBracket className="size-5" />
+            Logout
+          </button>
+        </div>
       </nav>
 
     
