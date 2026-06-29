@@ -46,7 +46,7 @@ export default function ReviewBar() {
               <p className="text-gray-300 text-sm mb-6 leading-relaxed">"{review.feedback || review.comment}"</p>
               
               <div className="border-t border-gray-800 pt-4 flex items-center gap-3">
-                {/* যদি ইমেজ ইউআরএল থাকে তবে তা ব্যবহার হবে */}
+               
                 {review.image ? (
                   <img src={review.image} alt={review.name} className="w-10 h-10 rounded-full object-cover" />
                 ) : (

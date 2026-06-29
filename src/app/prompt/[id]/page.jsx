@@ -40,7 +40,7 @@ export default function PromptDetails({ params }) {
                     </div>
                 </div>
 
-                {/* Right Side: Meta Info */}
+             
                 <div className="bg-gray-900 p-6 rounded-lg border border-gray-700 h-fit space-y-4">
                     <h3 className="font-bold border-b border-gray-700 pb-2">Prompt Details</h3>
                     <p>Category: <span className="bg-blue-900 px-2 py-1 rounded text-xs">{promptData.category}</span></p>
