@@ -3,9 +3,9 @@
 This is a clean, role-based dashboard application built for managing, creating, and reviewing prompt templates efficiently.
 
 ##  Project Access
-* **Live Side:** []
-* **Client Side:** [https://github.com/jannatulmaoya-JM/promptcraft-clien]
-* **Server Side:** [https://github.com/jannatulmaoya-JM/promptcraft-server]
+ **Live Side:** []
+ **Client Side:** [https://github.com/jannatulmaoya-JM/promptcraft-clien]
+ **Server Side:** [https://github.com/jannatulmaoya-JM/promptcraft-server]
 
 ##  Admin Access (For Testing)
  **Email:** `admin@example.com`
