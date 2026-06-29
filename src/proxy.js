@@ -1,6 +1,6 @@
 
 import { NextResponse } from "next/server";
-import { auth } from "./lib/auth";
+import { auth } from "@/lib/auth";
 import { cookies, headers } from "next/headers"; 
 
 export async function proxy(request) {
@@ -17,5 +17,8 @@ return NextResponse.next();
 export default proxy;
 
 export const config = {
-    matcher: ['/profile']
+    matcher: ['/profile', ]
 }
+
+
+// '/dashboard/user/payment'

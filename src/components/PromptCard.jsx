@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 
 import { Card, Chip } from "@heroui/react";
 import Image from "next/image"; 

@@ -1,6 +1,7 @@
 "use client";
 
 import { User } from "lucide-react";
+import Link from "next/link";
 
 export default function MyProfilePage({ role, userData }) {
 
@@ -55,9 +56,11 @@ export default function MyProfilePage({ role, userData }) {
             <h3 className="font-bold text-lg text-gray-900 mb-1">Upgrade to Pro Lifetime</h3>
             <p className="text-gray-500 text-sm">Unlock access to all private templates for $5.</p>
           </div>
+         <Link href="/payment">
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-md">
             Upgrade Now ($5)
           </button>
+         </Link>
         </div>
       </div>
     </div>

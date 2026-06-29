@@ -6,14 +6,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 import ClientWrapper from "@/components/ClientWrapper";
+import { ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -31,6 +35,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
        <ClientWrapper>
         <Toaster position="top-right" />
+        <ToastContainer position="top-right" autoClose={3000} />
         <Navbar/>
         <main>
              {children}

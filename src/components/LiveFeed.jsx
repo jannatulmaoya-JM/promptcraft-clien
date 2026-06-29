@@ -24,7 +24,7 @@ export default function LiveFeed() {
       >
         {activities.concat(activities).map((act, i) => (
           <div key={i} className="flex items-center text-gray-200 hover:text-white font-medium text-sm transition-colors">
-            {/* নীল ডট যা একটু উজ্জ্বল */}
+         
             <span className="w-2 h-2 rounded-full bg-blue-500 mr-3 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
             
             <span className="tracking-wide">
