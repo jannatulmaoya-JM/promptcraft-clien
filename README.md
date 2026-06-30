@@ -3,13 +3,13 @@
 This is a clean, role-based dashboard application built for managing, creating, and reviewing prompt templates efficiently.
 
 ##  Project Access
- **Live Side:** [https://promptcraft-clien-git-main-jannatulmaoya-jms-projects.vercel.app/]
+ **Live Side:** [https://promptcraft-clien.vercel.app/]
  **Client Side:** [https://github.com/jannatulmaoya-JM/promptcraft-clien]
  **Server Side:** [https://github.com/jannatulmaoya-JM/promptcraft-server]
 
 ##  Admin Access (For Testing)
  **Email:** `admin@example.com`
- **Password:** `your-secure-password`
+ **Password:** `Admin1234`
 
 ##  Role-Based Dashboard Access
 Depending on the user role, the sidebar will show different tools:
