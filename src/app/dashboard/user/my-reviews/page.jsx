@@ -1,20 +1,42 @@
+
 "use client";
 import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
 export default function MyReviewsPage() {
   const [reviews, setReviews] = useState([]);
+  const [session, setSession] = useState(null); 
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    async function fetchReviews() {
-      const session = await authClient.getSession();
-      if (!session) return;
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/reviews/${session.user.id}`);
-      const data = await res.json();
-      setReviews(data);
+    async function fetchUserAndReviews() {
+      try {
+       
+        const sessionData = await authClient.getSession();
+        if (!sessionData) {
+          setLoading(false);
+          return;
+        }
+        setSession(sessionData);
+
+        const userId = sessionData.user?.id;
+        if (userId) {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/reviews/${userId}`);
+          const data = await res.json();
+          setReviews(data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
     }
-    fetchReviews();
+
+    fetchUserAndReviews();
   }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (!session) return <p>Please login to view your reviews.</p>;
 
   return (
     <div className="p-8">
