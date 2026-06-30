@@ -10,7 +10,7 @@ export default function ReviewBar() {
     
     const fetchReviews = async () => {
       try {
-       const response = await fetch('http://localhost:5000/api/reviews/populer');
+       const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviews/populer`);
        const data = await response.json();
        
         setReviews(data); 

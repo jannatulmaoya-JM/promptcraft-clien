@@ -31,9 +31,8 @@ export default function AllPromptsPage() {
           limit: 10
         });
 
-        const response = await fetch(`http://localhost:5000/api/prompts?${params.toString()}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts?${params.toString()}`);
         const result = await response.json();
-
         setPrompts(result.data || []);
         setTotalPages(result.totalPages || 1);
       } catch (err) {

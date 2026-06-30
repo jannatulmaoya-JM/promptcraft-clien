@@ -11,7 +11,7 @@ useEffect(() => {
     const fetchPopularPrompts = async () => {
       try {
        
-        const response = await fetch('http://localhost:5000/api/prompts/popular');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/prompts/popular`);
         const result = await response.json();
         
         setPrompts(result.data || []);

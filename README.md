@@ -3,7 +3,7 @@
 This is a clean, role-based dashboard application built for managing, creating, and reviewing prompt templates efficiently.
 
 ##  Project Access
- **Live Side:** []
+ **Live Side:** [https://promptcraft-clien-git-main-jannatulmaoya-jms-projects.vercel.app/]
  **Client Side:** [https://github.com/jannatulmaoya-JM/promptcraft-clien]
  **Server Side:** [https://github.com/jannatulmaoya-JM/promptcraft-server]
 

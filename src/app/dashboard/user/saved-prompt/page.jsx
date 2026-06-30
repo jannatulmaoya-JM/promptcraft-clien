@@ -10,7 +10,7 @@ export default function SavedPromptsPage() {
       const session = await authClient.getSession();
       if (!session) return;
   
-      const res = await fetch(`http://localhost:5000/api/user/saved/${session.user.id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/user/saved/${session.user.id}`);
       const data = await res.json();
       setPrompts(data);
     }
