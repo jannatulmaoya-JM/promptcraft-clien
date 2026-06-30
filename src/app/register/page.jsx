@@ -1,6 +1,6 @@
 "use client";
 
-import { useState ,useEffect} from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "../../lib/auth-client";
@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import * as Icons from "@gravity-ui/icons";
 
 
-export default function SignUpPage() {
+ function SignUpContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -136,6 +136,16 @@ export default function SignUpPage() {
           Already have an account? <Link href="/login" className="text-blue-600 font-semibold hover:underline">Log in here</Link>
         </p>
       </div>
+    </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center py-6 px-4 bg-gray-50/50">
+      <Suspense fallback={<div>Loading...</div>}>
+        <SignUpContent />
+      </Suspense>
     </div>
   );
 }

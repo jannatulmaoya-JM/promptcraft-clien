@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb'; 
-import Prompt from '@/models/Prompt';      
+import Prompt from '@/lib/Prompt';
+     
 export async function GET() {
   try {
     await connectDB();
