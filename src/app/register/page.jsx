@@ -142,7 +142,7 @@ import * as Icons from "@gravity-ui/icons";
 
 export default function SignUpPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center py-6 px-4 bg-gray-50/50">
+    <div className="flex items-center justify-center py-6 px-4 bg-gray-50/50">
       <Suspense fallback={<div>Loading...</div>}>
         <SignUpContent />
       </Suspense>

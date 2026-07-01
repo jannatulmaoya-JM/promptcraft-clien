@@ -8,7 +8,8 @@ import { toast } from "react-hot-toast";
 import * as Icons from "@gravity-ui/icons";
 
 
-function LoginContent() {
+// function LoginContent
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -129,12 +130,12 @@ function LoginContent() {
     </div>
   );
 }
-export default function LoginPage() {
-  return (
-    <div className="min-h-screen flex items-center justify-center py-5 px-4 bg-gray-50/50">
-      <Suspense fallback={<div>Loading...</div>}>
-        <LoginContent />
-      </Suspense>
-    </div>
-  );
-}
+// export default function LoginPage() {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center py-5 px-4 bg-gray-50/50">
+//       <Suspense fallback={<div>Loading...</div>}>
+//         <LoginContent />
+//       </Suspense>
+//     </div>
+//   );
+// }
